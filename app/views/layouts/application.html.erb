@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="h-full">
   <head>
-    <title><%= content_for(:title) || "Food Planner" %></title>
+    <title><%= content_for(:title) || "Pantry" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -16,7 +16,7 @@
   <body class="min-h-full bg-gray-50 text-gray-900 antialiased">
     <header class="border-b bg-white">
       <nav class="mx-auto flex max-w-3xl items-center gap-6 px-4 py-3">
-        <%= link_to "Food Planner", root_path, class: "font-bold" %>
+        <%= link_to "Pantry", root_path, class: "font-bold" %>
         <%= link_to "Foods", foods_path, class: "text-gray-600 hover:text-gray-900" %>
         <%= link_to "Meals", meals_path, class: "text-gray-600 hover:text-gray-900" %>
       </nav>
