@@ -10,6 +10,10 @@
         <%= link_to edit_food_path(food), class: "flex items-center justify-between px-4 py-3 hover:bg-gray-50" do %>
           <span class="font-medium"><%= food.name %></span>
           <span class="text-sm text-gray-500"><%= number_with_precision(food.kcal, precision: 1, strip_insignificant_zeros: true) %> kcal</span>
+          <span class="text-sm text-gray-500"><%= number_with_precision(food.fat, precision: 1, strip_insignificant_zeros: true) %> fat</span>
+          <span class="text-sm text-gray-500"><%= number_with_precision(food.carbohydrate, precision: 1, strip_insignificant_zeros: true) %> carb</span>
+          <span class="text-sm text-gray-500"><%= number_with_precision(food.protein, precision: 1, strip_insignificant_zeros: true) %> prot</span>
+
         <% end %>
       </li>
     <% end %>

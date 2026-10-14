@@ -16,9 +16,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_14_090527) do
     t.float "kcal", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "fat"
-    t.float "carbohydrate"
-    t.float "protein"
+    t.float "fat", default: 0.0
+    t.float "carbohydrate", default: 0.0
+    t.float "protein", default: 0.0
     t.index ["name"], name: "index_foods_on_name", unique: true
   end
 

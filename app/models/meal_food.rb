@@ -10,4 +10,16 @@ class MealFood < ApplicationRecord
   def kcal
     food.kcal * quantity
   end
+
+  def carbohydrate
+    food.carbohydrate * quantity
+  end
+
+  def fat
+    food.fat * quantity
+  end
+
+  def protein
+    food.protein * quantity
+  end
 end

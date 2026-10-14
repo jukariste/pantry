@@ -67,6 +67,6 @@ class FoodsController < ApplicationController
   end
 
   def food_params
-    params.expect(food: [ :name, :kcal ])
+    params.expect(food: [ :name, :kcal, :fat, :carbohydrate, :protein ])
   end
 end

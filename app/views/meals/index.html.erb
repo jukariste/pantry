@@ -11,8 +11,12 @@
         <%= link_to edit_meal_path(meal), class: "flex items-center justify-between px-4 py-3 hover:bg-gray-50" do %>
           <span class="font-medium"><%= meal.name %></span>
           <span class="text-sm text-gray-500">
-            <%= pluralize(meal.meal_foods.size, "food") %> ·
+            <%= pluralize(meal.meal_foods.size, "food") %> |
             <%= number_with_precision(meal.total_kcal, precision: 0) %> kcal
+            <%= number_with_precision(meal.total_fat, precision: 0) %> fat
+            <%= number_with_precision(meal.total_carbohydrate, precision: 0) %> carb
+            <%= number_with_precision(meal.total_protein, precision: 0) %> protein
+
           </span>
         <% end %>
       </li>

@@ -1,6 +1,7 @@
-<%= form_with model: food, class: "flex flex-wrap items-start gap-2" do |f| %>
+<%= form_with model: food, class: "flex flex-col justify-center items-center gap-2" do |f| %>
+  
   <div>
-    <%= f.text_field :name, placeholder: "Food name",
+    <%= f.text_field :name, placeholder: "name",
           class: "rounded border px-2 py-1 #{'border-red-500' if food.errors[:name].any?}" %>
     <% food.errors.full_messages_for(:name).each do |message| %>
       <p class="mt-1 text-sm text-red-600"><%= message %></p>
@@ -8,9 +9,33 @@
   </div>
 
   <div>
-    <%= f.number_field :kcal, placeholder: "kcal per 100g", step: :any, min: 0,
-          class: "w-36 rounded border px-2 py-1 #{'border-red-500' if food.errors[:kcal].any?}" %>
+    <%= f.number_field :kcal, placeholder: "kcal", step: :any, min: 0,
+          class: "rounded border px-2 py-1 #{'border-red-500' if food.errors[:kcal].any?}" %>
     <% food.errors.full_messages_for(:kcal).each do |message| %>
+      <p class="mt-1 text-sm text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.number_field :fat, placeholder: "fat", step: :any, min: 0,
+          class: "rounded border px-2 py-1 #{'border-red-500' if food.errors[:fat].any?}" %>
+    <% food.errors.full_messages_for(:fat).each do |message| %>
+      <p class="mt-1 text-sm text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.number_field :carbohydrate, placeholder: "carbohydrate", step: :any, min: 0,
+          class: "rounded border px-2 py-1 #{'border-red-500' if food.errors[:carbohydrate].any?}" %>
+    <% food.errors.full_messages_for(:carbohydrate).each do |message| %>
+      <p class="mt-1 text-sm text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.number_field :protein, placeholder: "protein", step: :any, min: 0,
+          class: "rounded border px-2 py-1 #{'border-red-500' if food.errors[:protein].any?}" %>
+    <% food.errors.full_messages_for(:protein).each do |message| %>
       <p class="mt-1 text-sm text-red-600"><%= message %></p>
     <% end %>
   </div>
