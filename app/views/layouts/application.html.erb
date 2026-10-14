@@ -24,7 +24,16 @@
   </head>
 
   <body>
+      <% if notice.present? %>
+        <p class="mb-4 rounded bg-green-50 px-3 py-2 text-green-700"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="mb-4 rounded bg-red-50 px-3 py-2 text-red-700"><%= alert %></p>
+      <% end %>
     <main class="container mx-auto mt-28 px-5 flex">
+      <div>
+        
+      </div>
       <%= yield %>
     </main>
   </body>
