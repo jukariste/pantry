@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :meals
+  resources :meals do
+    resources :meal_foods, only: %i[create update destroy]
+  end
   resources :foods
+
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
