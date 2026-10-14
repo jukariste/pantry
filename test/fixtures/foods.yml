@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-egg:
-  name: Egg
-  kcal: 140
+apple:
+  name: Apple
+  kcal: 42
 
-oats:
-  name: Oats
-  kcal: 380
+banana:
+  name: Banana
+  kcal: 100

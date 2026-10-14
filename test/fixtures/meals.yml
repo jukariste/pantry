@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+breakfast:
+  name: Breakfast
 
-two:
-  name: MyString
+empty_meal:
+  name: Empty meal

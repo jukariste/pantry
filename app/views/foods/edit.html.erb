@@ -1,10 +1,10 @@
-<% content_for :title, "Editing food" %>
-
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing food</h1>
-
-  <%= render "form", food: @food %>
-
-  <%= link_to "Show this food", @food, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to foods", foods_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+<div class="mb-6 flex items-center justify-between">
+  <%= link_to "← All foods", foods_path, class: "text-sm text-gray-600 hover:text-gray-900" %>
+  <%= button_to "Delete food", @food, method: :delete,
+        form: { data: { turbo_confirm: "Delete this food?" } },
+        class: "text-sm text-red-600 cursor-pointer" %>
 </div>
+
+<h1 class="mb-4 text-2xl font-bold">Edit food</h1>
+
+<%= render "form", food: @food %>

@@ -1,48 +1,37 @@
 require "test_helper"
 
 class FoodsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @food = foods(:egg)
-  end
-
-  test "should get index" do
+  test "index and edit pages render" do
     get foods_url
     assert_response :success
-  end
 
-  test "should get new" do
-    get new_food_url
+    get edit_food_url(foods(:banana))
     assert_response :success
   end
 
-  test "should create food" do
-    assert_difference("Food.count") do
-      post foods_url, params: { food: { kcal: 222, name: "Controller Create Food" } }
+  test "create" do
+    assert_difference("Food.count", 1) do
+      post foods_url, params: { food: { name: "NewFood", kcal: 389 } }
     end
-
-    assert_redirected_to food_url(Food.last)
-  end
-
-  test "should show food" do
-    get food_url(@food)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_food_url(@food)
-    assert_response :success
-  end
-
-  test "should update food" do
-    patch food_url(@food), params: { food: { kcal: @food.kcal, name: @food.name } }
-    assert_redirected_to food_url(@food)
-  end
-
-  test "should destroy food" do
-    assert_difference("Food.count", -1) do
-      delete food_url(@food)
-    end
-
     assert_redirected_to foods_url
+  end
+
+  test "update" do
+    patch food_url(foods(:banana)), params: { food: { kcal: 90 } }
+    assert_redirected_to foods_url
+    assert_equal 90, foods(:banana).reload.kcal
+  end
+
+  test "destroy unused food" do
+    assert_difference("Food.count", -1) do
+      delete food_url(foods(:apple))
+    end
+  end
+
+  test "cannot destroy food used in a meal" do
+    assert_no_difference("Food.count") do
+      delete food_url(foods(:banana))
+    end
+    assert_redirected_to edit_food_url(foods(:banana))
   end
 end

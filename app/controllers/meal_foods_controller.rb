@@ -4,7 +4,7 @@ class MealFoodsController < ApplicationController
   def create
     meal_food = @meal.meal_foods.build(meal_food_params)
     if meal_food.save
-      redirect_to @meal, notice: "Food added."
+      redirect_to edit_meal_path(@meal), notice: "Food added."
     else
       redirect_to @meal, alert: meal_food.errors.full_messages.to_sentence
     end

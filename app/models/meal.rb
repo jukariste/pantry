@@ -5,6 +5,6 @@ class Meal < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   def total_kcal
-    meal_foods.includes(:food).sum(&:kcal)
+    meal_foods.sum(&:kcal)
   end
 end

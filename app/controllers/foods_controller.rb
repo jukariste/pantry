@@ -1,75 +1,72 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: %i[ show edit update destroy ]
+  before_action :set_food, only: %i[show edit update destroy]
 
-  # GET /foods or /foods.json
   def index
-    @foods = Food.all
-  end
-
-  # GET /foods/1 or /foods/1.json
-  def show
-  end
-
-  # GET /foods/new
-  def new
+    load_foods
     @food = Food.new
   end
 
-  # GET /foods/1/edit
+  def show
+    respond_to do |format|
+      format.html { redirect_to edit_food_path(@food) }
+      format.json
+    end
+  end
+
   def edit
   end
 
-  # POST /foods or /foods.json
   def create
     @food = Food.new(food_params)
 
     respond_to do |format|
       if @food.save
-        format.html { redirect_to @food, notice: "Food was successfully created." }
+        format.html { redirect_to foods_path, notice: "Food added." }
         format.json { render :show, status: :created, location: @food }
       else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @food.errors, status: :unprocessable_content }
+        format.html { load_foods; render :index, status: :unprocessable_entity }
+        format.json { render json: @food.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /foods/1 or /foods/1.json
   def update
     respond_to do |format|
       if @food.update(food_params)
-        format.html { redirect_to @food, notice: "Food was successfully updated.", status: :see_other }
+        format.html { redirect_to foods_path, notice: "Food updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @food }
       else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @food.errors, status: :unprocessable_content }
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @food.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /foods/1 or /foods/1.json
   def destroy
     if @food.destroy
       respond_to do |format|
-        format.html { redirect_to foods_path, notice: "Food was successfully destroyed.", status: :see_other }
+        format.html { redirect_to foods_path, notice: "Food deleted.", status: :see_other }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to @food, alert: @food.errors.full_messages.to_sentence, status: :see_other }
+        format.html { redirect_to edit_food_path(@food), alert: @food.errors.full_messages.to_sentence, status: :see_other }
         format.json { render json: @food.errors, status: :unprocessable_entity }
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_food
-      @food = Food.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def food_params
-      params.expect(food: [ :name, :kcal ])
-    end
+  def set_food
+    @food = Food.find(params[:id])
+  end
+
+  def load_foods
+    @foods = Food.order(:name)
+  end
+
+  def food_params
+    params.expect(food: [ :name, :kcal ])
+  end
 end

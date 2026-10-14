@@ -1,48 +1,29 @@
 require "test_helper"
 
 class MealsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @meal = meals(:one)
-  end
-
-  test "should get index" do
+  test "index and edit pages render" do
     get meals_url
     assert_response :success
-  end
 
-  test "should get new" do
-    get new_meal_url
+    get edit_meal_url(meals(:breakfast))
     assert_response :success
   end
 
-  test "should create meal" do
-    assert_difference("Meal.count") do
-      post meals_url, params: { meal: { name: @meal.name } }
+  test "create redirects to edit" do
+    assert_difference("Meal.count", 1) do
+      post meals_url, params: { meal: { name: "Dinner" } }
     end
-
-    assert_redirected_to meal_url(Meal.last)
+    assert_redirected_to edit_meal_url(Meal.last)
   end
 
-  test "should show meal" do
-    get meal_url(@meal)
-    assert_response :success
+  test "update" do
+    patch meal_url(meals(:breakfast)), params: { meal: { name: "Big breakfast" } }
+    assert_equal "Big breakfast", meals(:breakfast).reload.name
   end
 
-  test "should get edit" do
-    get edit_meal_url(@meal)
-    assert_response :success
-  end
-
-  test "should update meal" do
-    patch meal_url(@meal), params: { meal: { name: @meal.name } }
-    assert_redirected_to meal_url(@meal)
-  end
-
-  test "should destroy meal" do
+  test "destroy" do
     assert_difference("Meal.count", -1) do
-      delete meal_url(@meal)
+      delete meal_url(meals(:breakfast))
     end
-
-    assert_redirected_to meals_url
   end
 end
