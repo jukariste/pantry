@@ -8,8 +8,59 @@
   <h1 class="font-bold text-4xl">Showing meal</h1>
 
   <%= render @meal %>
-
   <%= link_to "Edit this meal", edit_meal_path(@meal), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
   <%= link_to "Back to meals", meals_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
   <%= button_to "Destroy this meal", @meal, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+<div class="mt-8">
+  <h2 class="text-xl font-bold mb-4">Foods</h2>
+
+  <table class="min-w-full text-left">
+    <thead>
+      <tr class="border-b">
+        <th class="py-2">Food</th>
+        <th class="py-2">Quantity (100 g)</th>
+        <th class="py-2">kcal</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @meal.meal_foods.includes(:food).each do |mf| %>
+        <tr class="border-b">
+          <td class="py-2"><%= mf.food.name %></td>
+          <td class="py-2">
+            <%= form_with model: [@meal, mf], class: "flex gap-2" do |f| %>
+              <%= f.number_field :quantity, step: 0.1, min: 0.1, class: "w-24 rounded border px-2 py-1" %>
+              <%= f.submit "Save", class: "rounded bg-gray-200 px-3 py-1 cursor-pointer" %>
+            <% end %>
+          </td>
+          <td class="py-2"><%= number_with_precision(mf.kcal, precision: 0) %></td>
+          <td class="py-2">
+            <%= button_to "Remove", [@meal, mf], method: :delete,
+                  class: "text-red-600 cursor-pointer" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr class="font-bold">
+        <td class="py-2" colspan="2">Total</td>
+        <td class="py-2"><%= number_with_precision(@meal.total_kcal, precision: 0) %></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <%= form_with model: [@meal, MealFood.new], class: "mt-6 flex gap-2 items-end" do |f| %>
+    <div>
+      <%= f.label :food_id, "Food", class: "block text-sm" %>
+      <%= f.collection_select :food_id, Food.order(:name), :id, :name,
+            { prompt: "Select a food" }, class: "rounded border px-2 py-1" %>
+    </div>
+    <div>
+      <%= f.label :quantity, "Quantity (g)", class: "block text-sm" %>
+      <%= f.number_field :quantity, step: 0.1, min: 0.1, class: "w-24 rounded border px-2 py-1" %>
+    </div>
+    <%= f.submit "Add food", class: "rounded bg-blue-600 text-white px-4 py-1 cursor-pointer" %>
+  <% end %>
+</div>
 </div>
