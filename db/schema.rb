@@ -10,12 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_14_021811) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_14_031520) do
   create_table "foods", force: :cascade do |t|
     t.string "name", null: false
     t.float "kcal", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_foods_on_name", unique: true
+  end
+
+  create_table "meals", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_meals_on_name", unique: true
   end
 end
