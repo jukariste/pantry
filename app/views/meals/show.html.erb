@@ -46,7 +46,6 @@
       </tr>
     </tfoot>
   </table>
-
   <%= form_with model: [@meal, MealFood.new], class: "mt-6 flex gap-2 items-end" do |f| %>
     <div>
       <%= f.label :food_id, "Food", class: "block text-sm" %>
@@ -59,5 +58,6 @@
     </div>
     <%= f.submit "Add food", class: "rounded bg-blue-600 text-white px-4 py-1 cursor-pointer" %>
   <% end %>
+
 </div>
 </div>
